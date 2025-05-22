@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 class EntregaModel {
   final int? id;
   final String nomeDestinatario;
+  final String cep;
   final String endereco;
   final String descricao;
   final int status;
@@ -10,33 +9,49 @@ class EntregaModel {
   EntregaModel({
     this.id,
     required this.nomeDestinatario,
+    required this.cep,
     required this.endereco,
     required this.descricao,
     required this.status,
   });
 
-  factory EntregaModel.fromMap(Map<String, dynamic> map) {
-    return EntregaModel(
-      id: map['id'] as int?,
-      nomeDestinatario: map['nomeDestinatario'] as String,
-      endereco: map['endereco'] as String,
-      descricao: map['descricao'] as String,
-      status: map['status'] as int,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'nomeDestinatario': nomeDestinatario,
+      'cep': cep,
       'endereco': endereco,
       'descricao': descricao,
       'status': status,
     };
   }
 
-  factory EntregaModel.fromJson(String source) =>
-      EntregaModel.fromMap(json.decode(source));
+  factory EntregaModel.fromMap(Map<String, dynamic> map) {
+    return EntregaModel(
+      id: map['id'],
+      nomeDestinatario: map['nomeDestinatario'],
+      cep: map['cep'],
+      endereco: map['endereco'],
+      descricao: map['descricao'],
+      status: map['status'],
+    );
+  }
 
-  String toJson() => json.encode(toMap());
+  EntregaModel copyWith({
+    int? id,
+    String? nomeDestinatario,
+    String? cep,
+    String? endereco,
+    String? descricao,
+    int? status,
+  }) {
+    return EntregaModel(
+      id: id ?? this.id,
+      nomeDestinatario: nomeDestinatario ?? this.nomeDestinatario,
+      cep: cep ?? this.cep,
+      endereco: endereco ?? this.endereco,
+      descricao: descricao ?? this.descricao,
+      status: status ?? this.status,
+    );
+  }
 }
