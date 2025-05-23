@@ -3,6 +3,7 @@ class EntregaModel {
   final String nomeDestinatario;
   final String cep;
   final String endereco;
+  final String numeroDaCasa;
   final String descricao;
   final int status;
 
@@ -11,6 +12,7 @@ class EntregaModel {
     required this.nomeDestinatario,
     required this.cep,
     required this.endereco,
+    required this.numeroDaCasa,
     required this.descricao,
     required this.status,
   });
@@ -21,6 +23,7 @@ class EntregaModel {
       'nomeDestinatario': nomeDestinatario,
       'cep': cep,
       'endereco': endereco,
+      'numeroDaCasa': numeroDaCasa,
       'descricao': descricao,
       'status': status,
     };
@@ -32,6 +35,7 @@ class EntregaModel {
       nomeDestinatario: map['nomeDestinatario'],
       cep: map['cep'],
       endereco: map['endereco'],
+      numeroDaCasa: map['numeroDaCasa'],
       descricao: map['descricao'],
       status: map['status'],
     );
@@ -42,6 +46,7 @@ class EntregaModel {
     String? nomeDestinatario,
     String? cep,
     String? endereco,
+    String? numeroDaCasa,
     String? descricao,
     int? status,
   }) {
@@ -50,6 +55,7 @@ class EntregaModel {
       nomeDestinatario: nomeDestinatario ?? this.nomeDestinatario,
       cep: cep ?? this.cep,
       endereco: endereco ?? this.endereco,
+      numeroDaCasa: numeroDaCasa ?? this.numeroDaCasa,
       descricao: descricao ?? this.descricao,
       status: status ?? this.status,
     );
