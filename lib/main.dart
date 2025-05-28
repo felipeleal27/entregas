@@ -137,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
       cepController.text = entrega.cep.replaceAll(RegExp(r'\D'), '');
       enderecoController.text = entrega.endereco;
       numeroDaCasa = entrega.numeroDaCasa;
+      numeroDaCasaController.text = entrega.numeroDaCasa;
     }
 
     showModalBottomSheet(
@@ -157,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 right: 16,
               ),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
                   children: [
                     Expanded(
@@ -261,6 +262,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                         value == null || value.isEmpty
                                             ? 'Informe o número da casa'
                                             : null,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: numeroDaCasaController.text.toLowerCase() == 's/n',
+                                    onChanged: (checked) {
+                                      setModalState(() {
+                                        if (checked == true) {
+                                          numeroDaCasaController.text = 's/n';
+                                        } else {
+                                          numeroDaCasaController.clear();
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  const Text('Sem número'),
+                                ],
                               ),
                               const SizedBox(height: 12),
 
@@ -455,7 +473,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.blue),
-                    tooltip: 'Excluir',
+                    tooltip: 'Editar',
                     onPressed: () async {
                       _mostrarFormularioCadastro(context, entrega: entrega);
                     },
@@ -542,8 +560,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> setCEP(String cep) async {
     cep = cep.replaceAll(RegExp(r'\D'), '');
-    if (cep.length != 8)
+    if (cep.length != 8) {
       throw Exception('CEP inválido. Deve conter 8 dígitos.');
+    }
     final response = await http.get(
       Uri.parse('https://viacep.com.br/ws/$cep/json/'),
     );
